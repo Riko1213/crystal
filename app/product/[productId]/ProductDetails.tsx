@@ -136,7 +136,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             </p>
             <div className="max-w-[300px]">
               <Button
-                label="View Cart"
+                label="Сагс харах"
                 outline
                 onClick={() => {
                   router.push("/cart");
@@ -160,7 +160,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             <Horizontal />
             <div className="max-w-[300px]">
               <Button
-                label="Add To Cart"
+                label="Сагсанд нэмэх"
                 onClick={() => handleAddProductToCart(cartProduct)}
               />
             </div>

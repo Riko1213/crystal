@@ -60,6 +60,13 @@ const AdminNav = () => {
               selected={pathname === "/admin/myproduct"}
             />
           </Link>
+          <Link href="/admin/products-in-orders">
+            <AdminNavItem
+              label="Хүлээгдэж буй бараанууд"
+              icon={MdFormatListBulleted}
+              selected={pathname === "/admin/products-in-orders"}
+            />
+          </Link>
         </div>
       </Container>
     </div>

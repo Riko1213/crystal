@@ -65,7 +65,7 @@ const Summary:React.FC<SummaryProps> = ({orders, products, users}) => {
                 return order.deliveryStatus === 'dispatched'
             }))
 
-            tempData.sale.digit = totalSale;
+            tempData.sale.digit = totalSale/100;
             tempData.orders.digit = orders.length;
             tempData.paidOrders.digit = paidOrders.length;
             tempData.unpaidOrders.digit = unpaidOrders.length;

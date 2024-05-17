@@ -6,7 +6,6 @@ import Input from "../components/inputs/Input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Button from "../components/Button";
 import Link from "next/link";
-import { AiOutlineGoogle } from "react-icons/ai";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
@@ -68,7 +67,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
       <hr className="bg-slate-300 w-full h-px" />
       <Input
         id="email"
-        label="Email"
+        label="Цахим хаяг"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -76,7 +75,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
       />
       <Input
         id="password"
-        label="Password"
+        label="Нууц үг"
         disabled={isLoading}
         register={register}
         errors={errors}

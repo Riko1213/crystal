@@ -63,7 +63,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
 
       // Simulate delay
       setTimeout(() => {
-        toast.success("Checkout Success");
+        toast.success("Амжилттай");
         handleSetWrote(true);
         setIsLoading(false);
       }, 2000);

@@ -145,7 +145,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
         deliveryStatus: "dispatched",
       })
       .then((res) => {
-        toast.success("Order Dispatched");
+        toast.success("Хүргэлтэнд гарсан");
         router.refresh();
       })
       .catch((err) => {
@@ -161,7 +161,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
         deliveryStatus: "delivered",
       })
       .then((res) => {
-        toast.success("Order Delivered");
+        toast.success("Захиалга хүргэгдсэн");
         router.refresh();
       })
       .catch((err) => {

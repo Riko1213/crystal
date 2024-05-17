@@ -35,7 +35,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
 
   useEffect(() => {
     if (currentUser) {
-      router.push("/cart");
+      router.push("/");
       router.refresh();
     }
   }, []);
@@ -46,7 +46,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
     axios
       .post("/api/register", data)
       .then(() => {
-        toast.success("Account created");
+        toast.success("Бүртгэл үүссэн");
 
         signIn("credentials", {
           email: data.email,
@@ -80,7 +80,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
       <hr className="bg-slate-300 w-full h-px" />
       <Input
         id="name"
-        label="Name"
+        label="Нэр"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -88,7 +88,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
       />
       <Input
         id="email"
-        label="Email"
+        label="Цахим хаяг"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -96,7 +96,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
       />
       <Input
         id="password"
-        label="Password"
+        label="Нууц үг"
         disabled={isLoading}
         register={register}
         errors={errors}
