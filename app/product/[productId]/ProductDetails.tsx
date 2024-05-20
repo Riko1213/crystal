@@ -22,7 +22,6 @@ export type CartProductType = {
   brand: string;
   selectedImg: SelectedImgType;
   quantity: number;
-  qity:number;
   price: number;
 };
 
@@ -46,7 +45,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     category: product.category,
     brand: product.brand,
     selectedImg: { ...product.images[0] },
-    qity: product.quantity,
     quantity: 1,
     price: product.price,
   });

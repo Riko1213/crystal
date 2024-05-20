@@ -73,6 +73,8 @@ model Order{
   amount Float
   number String
   address String
+  desc String
+  date DateTime
   deliveryStatus String?
   createDate DateTime @default(now())
   products CartProductType[]

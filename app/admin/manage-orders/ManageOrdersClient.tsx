@@ -9,6 +9,9 @@ import {
   MdAccessTimeFilled,
   MdDeliveryDining,
   MdDone,
+  MdMoneyOff,
+  MdOutlineCancel,
+  MdOutlinePaid,
   MdRemoveRedEye,
 } from "react-icons/md";
 import ActionBtn from "@/app/components/ActionBtn";
@@ -37,14 +40,15 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
     rows = orders
     .filter(order => {
       if (!selectedDate) return true; // If no date is selected, show all orders
-      return moment(order.createDate).isSame(selectedDate, 'day'); // Filter orders by selected date
+      return moment(order.date).isSame(selectedDate, 'day'); // Filter orders by selected date
     })
     .map((order) => {
       return {
+        ddate:order.date,
+        desc:order.desc,
         id: order.id,
         phone: order.number,
         address:order.address,
-        customer: order.user.name,
         amount: formatPrice(order.amount / 100),
         date: moment(order.createDate).fromNow(),
         deliveryStatus: order.deliveryStatus,
@@ -53,8 +57,8 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
   }
 
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 120 },
-    { field: "customer", headerName: "нэр", width: 100 },
+    { field: "ddate", headerName: "Огноо", width: 220 },
+    { field: "desc", headerName: "Тайлбар", width: 220 },
     { field:"phone",headerName:"Утас",width:100},
     {field:"address",headerName:"Хаяг",width:200},
     {
@@ -70,7 +74,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
     {
       field: "deliveryStatus",
       headerName: "Хүргэлтийн хэлбэр",
-      width: 130,
+      width: 160,
       renderCell: (params) => {
         return (
           <div>
@@ -95,17 +99,33 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
                 bg="bg-green-200"
                 color="text-green-700"
               />
+            ): params.row.deliveryStatus === "paidnotdel" ? (
+              <Status
+                text="Төлөгдсөн"
+                icon={MdOutlinePaid}
+                bg="bg-green-200"
+                color="text-green-700"
+              />
+            ):params.row.deliveryStatus === "delnotpaid" ? (
+              <Status
+                text="Төлөгдөөгүй"
+                icon={MdMoneyOff}
+                bg="bg-green-200"
+                color="text-green-700"
+              />
+            ):params.row.deliveryStatus === "cancel" ? (
+              <Status
+                text="Цуцлагдсан"
+                icon={MdOutlineCancel}
+                bg="bg-green-200"
+                color="text-green-700"
+              />
             ) : (
               <></>
             )}
           </div>
         );
       },
-    },
-    {
-      field: "date",
-      headerName: "Огноо",
-      width: 130,
     },
     {
       field: "action",

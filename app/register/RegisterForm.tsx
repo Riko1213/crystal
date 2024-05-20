@@ -76,7 +76,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
 
   return (
     <>
-      <Heading title="Sign up for E~Shop" />
+      <Heading title="Бүртгэл үүсгэх" />
       <hr className="bg-slate-300 w-full h-px" />
       <Input
         id="name"
@@ -88,7 +88,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
       />
       <Input
         id="email"
-        label="Цахим хаяг"
+        label="Утасны дугаар эсвэл цахим хаяг"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -104,7 +104,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
         type="password"
       />
       <Button
-        label={isLoading ? "Loading" : "Sign Up"}
+        label={isLoading ? "Loading" : "Бүртгүүлэх"}
         onClick={handleSubmit(onSubmit)}
       />
       <p className="text-sm">

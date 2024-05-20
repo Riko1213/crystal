@@ -9,6 +9,9 @@
     MdAccessTimeFilled,
     MdDeliveryDining,
     MdDone,
+    MdMoneyOff,
+    MdOutlineCancel,
+    MdOutlinePaid,
     MdRemoveRedEye,
   } from "react-icons/md";
   import ActionBtn from "@/app/components/ActionBtn";
@@ -32,6 +35,8 @@
     if (orders) {
       rows = orders.map((order) => {
         return {
+          ddate:order.date,
+          desc:order.desc,
           id: order.id,
           phone: order.number,
           address:order.address,
@@ -44,8 +49,8 @@
     }
 
     const columns: GridColDef[] = [
-      {field: "id", headerName: "ID", width: 120 },
-      { field: "customer", headerName: "нэр", width: 100 },
+      { field: "ddate", headerName: "Огноо", width: 220 },
+    { field: "desc", headerName: "Тайлбар", width: 220 },
       { field:"phone",headerName:"Утас",width:100},
       {field:"address",headerName:"Хаяг",width:200},
       {
@@ -86,17 +91,33 @@
                   bg="bg-green-200"
                   color="text-green-70  0"
                 />
+              ): params.row.deliveryStatus === "paidnotdel" ? (
+                <Status
+                  text="Төлөгдсөн"
+                  icon={MdOutlinePaid}
+                  bg="bg-green-200"
+                  color="text-green-700"
+                />
+              ):params.row.deliveryStatus === "delnotpaid" ? (
+                <Status
+                  text="Төлөгдөөгүй"
+                  icon={MdMoneyOff}
+                  bg="bg-green-200"
+                  color="text-green-700"
+                />
+              ):params.row.deliveryStatus === "cancel" ? (
+                <Status
+                  text="Цуцлагдсан"
+                  icon={MdOutlineCancel}
+                  bg="bg-green-200"
+                  color="text-green-700"
+                />
               ) : (
                 <></>
               )}
             </div>
           );
         },
-      },
-      {
-        field: "date",
-        headerName: "Огноо",
-        width: 130,
       },
       {
         field: "action",

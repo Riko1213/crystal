@@ -25,10 +25,6 @@ const Summary:React.FC<SummaryProps> = ({orders, products, users}) => {
             label: 'Нийт орлого',
             digit: 0
         },
-        products:{
-            label: 'Бараанууд',
-            digit: 0
-        },
         orders:{
             label: 'Захиалгууд',
             digit: 0
@@ -39,10 +35,6 @@ const Summary:React.FC<SummaryProps> = ({orders, products, users}) => {
         },
         unpaidOrders:{
             label: 'Төлөөгүй тоо',
-            digit: 0
-        },
-        users:{
-            label: 'хэрэглэгчид',
             digit: 0
         },
     })
@@ -62,15 +54,13 @@ const Summary:React.FC<SummaryProps> = ({orders, products, users}) => {
             }))
 
             const unpaidOrders = orders.filter((order =>{
-                return order.deliveryStatus === 'dispatched'
+                return order.deliveryStatus === 'dispatched'||order.deliveryStatus==='delnotpaid'
             }))
 
             tempData.sale.digit = totalSale;
             tempData.orders.digit = orders.length;
             tempData.paidOrders.digit = paidOrders.length;
-            tempData.unpaidOrders.digit = unpaidOrders.length;
-            tempData.products.digit = products.length;
-            tempData.users.digit = users.length;           
+            tempData.unpaidOrders.digit = unpaidOrders.length;     
 
             return tempData
         })

@@ -41,3 +41,18 @@ export async function GET(request: Request) {
     return new Response(null, { status: 500 });
   }
 }
+export async function PUT(request: Request) {
+
+  
+
+  const body = await request.json();
+  const { email,password } = body;
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const order = await prisma.user.update({
+    where: { email: email },
+    data: { hashedPassword:hashedPassword },
+  });
+
+  return NextResponse.json(order);
+}

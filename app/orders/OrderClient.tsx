@@ -31,6 +31,7 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
   if (orders) {
     rows = orders.map((order) => {
       return {
+        ddate:order.date,
         id: order.id,
         customer: order.user.name,
         amount: formatPrice(order.amount / 100),
@@ -41,11 +42,11 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
   }
 
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 220 },
-    { field: "customer", headerName: "Customer Name", width: 130 },
+    { field: "ddate", headerName: "Авах өдөр цаг", width: 220 },
+    { field: "customer", headerName: "Нэр", width: 130 },
     {
       field: "amount",
-      headerName: "Amount(USD)",
+      headerName: "Нийт дүн",
       width: 130,
       renderCell: (params) => {
         return (
@@ -55,7 +56,7 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
     },
     {
       field: "deliveryStatus",
-      headerName: "Delivery Status",
+      headerName: "Хүргэлтийн статус",
       width: 130,
       renderCell: (params) => {
         return (
@@ -95,7 +96,7 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
     },
     {
       field: "action",
-      headerName: "Actions",
+      headerName: "Үйлдэл",
       width: 200,
       renderCell: (params) => {
         return (
@@ -115,7 +116,7 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
   return (
     <div className="max-w-[1150px] m-auto text-xl">
       <div className="mb-4 mt-8">
-        <Heading title=" Orders" center />
+        <Heading title=" Захиалгууд" center />
       </div>
       <div style={{ height: 600, width: "100%" }}>
         <DataGrid

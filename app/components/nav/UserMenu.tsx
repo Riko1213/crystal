@@ -100,7 +100,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                     signOut();
                   }}
                 >
-                  Logout
+                  Гарах
                 </MenuItem>
               </div>
             ) : (

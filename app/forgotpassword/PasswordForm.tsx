@@ -5,17 +5,16 @@ import Heading from "../components/Heading";
 import Input from "../components/inputs/Input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Button from "../components/Button";
-import Link from "next/link";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { SafeUser } from "@/types";
+import axios from "axios";
 
-interface LoginFormProps {
+interface PasswordFormProps {
   currentUser: SafeUser | null;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
+const PasswordForm: React.FC<PasswordFormProps> = ({ currentUser }) => {
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -32,29 +31,28 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
 
   useEffect(() => {
     if (currentUser) {
-      router.push("/cart");
+      router.push("/login");
       router.refresh();
     }
   }, []);
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
-    signIn("credentials", {
-      ...data,
-      redirect: false,
-    }).then((callback) => {
+    try {
+      const response = await axios.put("/api/register", data);
       setIsLoading(false);
 
-      if (callback?.ok) {
-        router.push("/cart");
+      if (response.status === 200) {
+        router.push("/login");
         router.refresh();
-        toast.success("Logged In");
+        toast.success("Шинэчилсэн");
+      } else {
+        toast.error(response.data.error || "An error occurred");
       }
-
-      if (callback?.error) {
-        toast.error(callback.error);
-      }
-    });
+    } catch (error) {
+      setIsLoading(false);
+      toast.error("An error occurred");
+    }
   };
 
   if (currentUser) {
@@ -63,11 +61,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
 
   return (
     <>
-      <Heading title="Нэвтрэх" />
+      <Heading title="Нууц үг шинэчлэх" />
       <hr className="bg-slate-300 w-full h-px" />
       <Input
         id="email"
-        label="Утасны дугаар эсвэл цахим хаяг"
+        label="Цахим хаяг"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -83,23 +81,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
         type="password"
       />
       <Button
-        label={isLoading ? "Loading" : "Нэвтрэх"}
+        label={isLoading ? "Loading" : "Шинэчлэх"}
         onClick={handleSubmit(onSubmit)}
       />
-      <p className="text-sm">
-        Нууц үгээ мартсан уу?{" "}
-        <Link className="underline" href="/forgotpassword">
-          Нууц үг шинэчлэх
-        </Link>
-      </p>
-      <p className="text-sm">
-        Бүртгэл үүсгэсэн үү?{" "}
-        <Link className="underline" href="/register">
-          Бүртгүүлэх
-        </Link>
-      </p>
     </>
   );
 };
 
-export default LoginForm;
+export default PasswordForm;

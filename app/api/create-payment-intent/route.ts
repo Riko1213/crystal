@@ -22,13 +22,15 @@ export async function POST(request: Request) {
   }
 
   const body = await request.json();
-  const { items, address, number } = body;
+  const { items, address, number,desc,date } = body;
   const total = calculateOrderAmount(items) * 100;
   const orderData = {
     userId: currentUser.id,
     amount: total,
     number: number,
     address: address,
+    desc:desc,
+    date:date,
     deliveryStatus: "pending",
     products: items,
   };

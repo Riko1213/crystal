@@ -18,6 +18,8 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
+  const [desc, setDesc] = useState('');
+  const [date, setDate] = useState('');
   const formattedPrice = formatPrice(cartTotalAmount);
 
   const minusQuantity = useCallback(async (id: string,qity:number) => {
@@ -48,7 +50,8 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
           items: cartProducts,
           address: address,
           number: phone,
-          
+          desc:desc,
+          date: new Date(date).toISOString(),
         }),
       });
        
@@ -86,6 +89,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
             id="phone"
             name="phone"
             type="tel"
+            placeholder="89101054"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             required
@@ -100,11 +104,41 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
             id="address"
             name="address"
             value={address}
+            placeholder="Жишээлбэл: СХД 5-р хороо 12-р байр 2-р орц 56 тоот"
             onChange={(e) => setAddress(e.target.value)}
             required
             rows={4}
             className="mt-1 p-2 border border-gray-300 rounded-md w-full resize-none"
           ></textarea>
+        </div>
+        <div className="mb-4">
+          <label htmlFor="desc" className="block text-sm font-medium text-gray-700">
+            Барааны хэмжээны мэдээлэл
+          </label>
+          <textarea
+            id="desc"
+            name="desc"
+            value={desc}
+            placeholder="Захиалах гэж буй бараанууд ямар нэгэн хэмжээ шаардагдаж байгаа бол өөрийн авах хэмжээгээ бичээрэй Жишээлбэл: барааны нэр:хэмжээ"
+            onChange={(e) => setDesc(e.target.value)}
+            required
+            rows={4}
+            className="mt-1 p-2 border border-gray-300 rounded-md w-full resize-none"
+          ></textarea>
+        </div>
+        <div className="mb-4">
+          <label htmlFor="date" className="block text-sm font-medium text-gray-700">
+            Хүргэлтийн огноо ба цаг
+          </label>
+          <input
+            id="date"
+            name="date"
+            type="datetime-local"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            required
+            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+          />
         </div>
         <div className="py-4 text-center text-slate-700 text-xl font-bold">
           Нийт: {formattedPrice}

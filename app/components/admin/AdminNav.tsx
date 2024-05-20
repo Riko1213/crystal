@@ -32,6 +32,13 @@ const AdminNav = () => {
               selected={pathname === "/admin/add-products"}
             />
           </Link>
+          <Link href="/admin/users">
+            <AdminNavItem
+              label="Хэрэглэгч нар"
+              icon={MdLibraryAdd}
+              selected={pathname === "/admin/users"}
+            />
+          </Link>
           <Link href="/admin/manage-products">
             <AdminNavItem
               label="Бараанууд"

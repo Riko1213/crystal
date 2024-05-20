@@ -1,33 +1,41 @@
-import { AiFillPhone, AiOutlineDesktop, AiOutlineLaptop } from "react-icons/ai";
-import { MdOutlineKeyboard, MdStorefront, MdTv, MdWatch } from "react-icons/md";
+import { AiOutlineHome, AiFillCar, AiOutlineSkin } from "react-icons/ai";
+import { MdOutlineSportsBasketball,MdYard , MdStorefront,MdElectricBolt, MdHealthAndSafety ,MdOutlineTravelExplore, MdBedroomBaby} from "react-icons/md";
 
 export const categories = [
   {
-    label: "All",
-    icon: MdStorefront,
+    label: "Гоо сайхан",
+    icon: MdYard ,
   },
   {
-    label: "Phone",
-    icon: AiFillPhone,
+    label: "Гэр ахуй",
+    icon: AiOutlineHome,
   },
   {
-    label: "Laptop",
-    icon: AiOutlineLaptop,
+    label: "Хүүхдийн",
+    icon: MdBedroomBaby,
   },
   {
-    label: "Desktop",
-    icon: AiOutlineDesktop,
+    label: "Машины хэрэгсэл",
+    icon: AiFillCar,
   },
   {
-    label: "Watch",
-    icon: MdWatch,
+    label: "Хувцас",
+    icon: AiOutlineSkin,
   },
   {
-    label: "Tv",
-    icon: MdTv,
+    label: "Эрүүл мэнд",
+    icon: MdHealthAndSafety ,
   },
   {
-    label: "Accesories",
-    icon: MdOutlineKeyboard,
+    label: "Тоглоом",
+    icon: MdOutlineSportsBasketball,
+  },
+  {
+    label: "Цахилгаан бараа",
+    icon: MdElectricBolt,
+  },
+  {
+    label: "Аялал",
+    icon: MdOutlineTravelExplore,
   },
 ];

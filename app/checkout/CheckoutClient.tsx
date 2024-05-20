@@ -16,6 +16,7 @@ const CheckoutClient = () => {
   const{handleSubmit,formState:{errors},}=useForm<FieldValues>({defaultValues:{
     phone:"",
     address:"",
+    desc:"",
   },})
 
   const router = useRouter();
@@ -34,6 +35,8 @@ const CheckoutClient = () => {
           items: cartProducts,
           phone:data.phone,
           address:data.address,
+          desc:data.desc,
+          date:data.dateTime
         }),
       })
         .then((res) => {

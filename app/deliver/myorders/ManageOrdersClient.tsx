@@ -10,6 +10,9 @@ import {
   MdDeliveryDining,
   MdDone,
   MdRemoveRedEye,
+  MdOutlinePaid,
+  MdMoneyOff,
+  MdOutlineCancel,
 } from "react-icons/md";
 import ActionBtn from "@/app/components/ActionBtn";
 import { useCallback, useEffect, useState } from "react";
@@ -45,11 +48,10 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
           const foundOrder = data.find((item: any) => item.orderId === order.id);
           if (foundOrder) {
             return {
+              ddate:order.date,
               id: order.id,
-              name:foundOrder.userId,
               phone: order.number,
               address: order.address,
-              customer: order.user.name,
               amount: formatPrice(order.amount / 100),
               date: moment(order.createDate).fromNow(),
               deliveryStatus: order.deliveryStatus,
@@ -66,9 +68,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
   
 
   const columns: GridColDef[] = [
-    {field: "id", headerName: "ID", width: 120 },
-    {field: "name", headerName: "ner", width: 120 },
-    { field: "customer", headerName: "нэр", width: 100 },
+    {field: "ddate", headerName: "Огноо", width: 120 },
     { field:"phone",headerName:"Утас",width:100},
     {field:"address",headerName:"Хаяг",width:200},
     {
@@ -84,28 +84,49 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
     {
       field: "deliveryStatus",
       headerName: "Хүргэлтийн хэлбэр",
-      width: 130,
+      width: 160,
       renderCell: (params) => {
         return (
           <div>
             {params.row.deliveryStatus === "pending" ? (
               <Status
-                text="pending"
+                text="Хүлээгдэж байна"
                 icon={MdAccessTimeFilled}
                 bg="bg-slate-200"
                 color="text-slate-700"
               />
             ) : params.row.deliveryStatus === "dispatched" ? (
               <Status
-                text="dispatched"
+                text="Хүргэлтэнд гарсан"
                 icon={MdDeliveryDining}
                 bg="bg-purple-200"
                 color="text-purple-700"
               />
             ) : params.row.deliveryStatus === "delivered" ? (
               <Status
-                text="delivered"
+                text="Хүргэгдсэн"
                 icon={MdDone}
+                bg="bg-green-200"
+                color="text-green-700"
+              />
+            ): params.row.deliveryStatus === "paidnotdel" ? (
+              <Status
+                text="Төлөгдсөн"
+                icon={MdOutlinePaid}
+                bg="bg-green-200"
+                color="text-green-700"
+              />
+            ):params.row.deliveryStatus === "delnotpaid" ? (
+              <Status
+                text="Төлөгдөөгүй"
+                icon={MdMoneyOff}
+                bg="bg-green-200"
+                color="text-green-700"
+              />
+            ):params.row.deliveryStatus === "cancel" ? (
+              <Status
+                text="Цуцлагдсан"
+                icon={MdOutlineCancel}
                 bg="bg-green-200"
                 color="text-green-700"
               />
@@ -117,14 +138,9 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
       },
     },
     {
-      field: "date",
-      headerName: "Огноо",
-      width: 130,
-    },
-    {
       field: "action",
       headerName: "Үйлдэл",
-      width: 200,
+      width: 300,
       renderCell: (params) => {
         return (
           <div className="flex justify-between gap-4 w-full">
@@ -138,6 +154,24 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
               icon={MdDone}
               onClick={() => {
                 handleDeliver(params.row.id);
+              }}
+            />
+            <ActionBtn
+              icon={MdOutlinePaid}
+              onClick={() => {
+                handlePaid(params.row.id);
+              }}
+            />
+            <ActionBtn
+              icon={MdMoneyOff}
+              onClick={() => {
+                handleDel(params.row.id);
+              }}
+            />
+            <ActionBtn
+              icon={MdOutlineCancel}
+              onClick={() => {
+                handleCancel(params.row.id);
               }}
             />
             <ActionBtn
@@ -160,6 +194,60 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
       })
       .then((res) => {
         toast.success("Order Dispatched");
+        router.refresh();
+      })
+      .catch((err) => {
+        toast.error("Алдаа");
+        console.log(err);
+      });
+    axios.post("/api/myorder", {
+        orderId: id,
+      });
+  }, []);
+  const handleCancel = useCallback((id: string) => {
+    axios
+      .put("/api/order", {
+        id,
+        deliveryStatus: "cancel",
+      })
+      .then((res) => {
+        toast.success("Цуцалсан");
+        router.refresh();
+      })
+      .catch((err) => {
+        toast.error("Алдаа");
+        console.log(err);
+      });
+    axios.post("/api/myorder", {
+        orderId: id,
+      });
+  }, []);
+  const handlePaid = useCallback((id: string) => {
+    axios
+      .put("/api/order", {
+        id,
+        deliveryStatus: "paidnotdel",
+      })
+      .then((res) => {
+        toast.success("Төрөл өөрчлөгдсөн");
+        router.refresh();
+      })
+      .catch((err) => {
+        toast.error("Алдаа");
+        console.log(err);
+      });
+    axios.post("/api/myorder", {
+        orderId: id,
+      });
+  }, []);
+  const handleDel = useCallback((id: string) => {
+    axios
+      .put("/api/order", {
+        id,
+        deliveryStatus: "delnotpaid",
+      })
+      .then((res) => {
+        toast.success("Төрөл өөрчлөгдсөн");
         router.refresh();
       })
       .catch((err) => {

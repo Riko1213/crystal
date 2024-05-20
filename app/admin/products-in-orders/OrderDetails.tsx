@@ -14,7 +14,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
   return (
     <div className="max-w-[1150px] m-auto flex flex-col gap-2">
       <div className="mt-8">
-        <Heading title="Order Details" />
+        <Heading title="Захиалгын бараанууд" />
       </div>
       <div>Захиалгын дугаар: {order.id}</div>
       <div>
@@ -50,7 +50,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
           )}
         </div>
       </div>
-      <div>Огноо: {moment(order.createDate).fromNow()}</div>
+      <div>Огноо: {moment(order.date).format()}</div>
       <div>
         <h2 className="font-semibold mt-4 mb-2">Захиалсан бараа</h2>
         <div className="grid grid-cols-5 text-xs gap-4 pb-2 items-center">
