@@ -21,6 +21,7 @@ export type CartProductType = {
   category: string;
   brand: string;
   selectedImg: SelectedImgType;
+  qity:number,
   quantity: number;
   price: number;
 };
@@ -45,6 +46,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     category: product.category,
     brand: product.brand,
     selectedImg: { ...product.images[0] },
+    qity:product.quantity,
     quantity: 1,
     price: product.price,
   });
@@ -115,9 +117,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         <Horizontal />
         <div>
           <span className="font-semibold">АНГИЛАЛ:</span> {product.category}
-        </div>
-        <div>
-          <span className="font-semibold">ТОО ШИРХЭГ:</span> {product.quantity}
         </div>
         <div>
           <span className="font-semibold">БРЕНД:</span> {product.brand}
