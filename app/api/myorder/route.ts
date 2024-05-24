@@ -58,3 +58,16 @@ export async function GET(request: Request) {
     return NextResponse.error();
   }
 }
+export async function DELETE(request: Request) {
+
+  
+
+  const body = await request.json();
+  const { userId } = body;
+
+  const myOrder = await prisma.myorder.deleteMany({
+    where: { userId:userId  },
+  });
+
+  return NextResponse.json(myOrder);
+}

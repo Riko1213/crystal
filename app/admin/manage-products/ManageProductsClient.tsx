@@ -11,6 +11,7 @@ import {
   MdDelete,
   MdDone,
   MdRemoveRedEye,
+  MdEdit,
 } from "react-icons/md";
 import ActionBtn from "@/app/components/ActionBtn";
 import { useCallback, useEffect, useState } from "react";
@@ -126,6 +127,12 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
                 router.push(`product/${params.row.id}`);
               }}
             />
+            <ActionBtn
+              icon={MdEdit}
+              onClick={() => {
+                handleEdit(params.row.id);
+              }}
+            />
           </div>
         );
       },
@@ -177,6 +184,10 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
         toast.error("Алдаа");
         console.log(err);
       });
+  }, []);
+  const handleEdit = useCallback((id: string) => {
+    // Navigate to edit page, passing the product ID
+    router.push(`/edit/${id}`);
   }, []);
 
   return (

@@ -13,6 +13,7 @@ import {
   MdOutlineCancel,
   MdOutlinePaid,
   MdRemoveRedEye,
+  MdEdit,
 } from "react-icons/md";
 import ActionBtn from "@/app/components/ActionBtn";
 import { useCallback, useState } from "react";
@@ -44,11 +45,12 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
     })
     .map((order) => {
       return {
-        ddate:order.date,
-        desc:order.desc,
+        ddate: order.date,
+        desc: order.desc,
         id: order.id,
+        name: order.user.name,
         phone: order.number,
-        address:order.address,
+        address: order.address,
         amount: formatPrice(order.amount / 100),
         date: moment(order.createDate).fromNow(),
         deliveryStatus: order.deliveryStatus,
@@ -58,9 +60,10 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
 
   const columns: GridColDef[] = [
     { field: "ddate", headerName: "Огноо", width: 220 },
+    { field: "name", headerName: "Нэр", width: 130 },
     { field: "desc", headerName: "Тайлбар", width: 220 },
-    { field:"phone",headerName:"Утас",width:100},
-    {field:"address",headerName:"Хаяг",width:200},
+    { field: "phone", headerName: "Утас", width: 100 },
+    { field: "address", headerName: "Хаяг", width: 200 },
     {
       field: "amount",
       headerName: "Үнэ",
@@ -99,21 +102,21 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
                 bg="bg-green-200"
                 color="text-green-700"
               />
-            ): params.row.deliveryStatus === "paidnotdel" ? (
+            ) : params.row.deliveryStatus === "paidnotdel" ? (
               <Status
                 text="Төлөгдсөн"
                 icon={MdOutlinePaid}
                 bg="bg-green-200"
                 color="text-green-700"
               />
-            ):params.row.deliveryStatus === "delnotpaid" ? (
+            ) : params.row.deliveryStatus === "delnotpaid" ? (
               <Status
                 text="Төлөгдөөгүй"
                 icon={MdMoneyOff}
                 bg="bg-green-200"
                 color="text-green-700"
               />
-            ):params.row.deliveryStatus === "cancel" ? (
+            ) : params.row.deliveryStatus === "cancel" ? (
               <Status
                 text="Цуцлагдсан"
                 icon={MdOutlineCancel}
@@ -130,7 +133,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
     {
       field: "action",
       headerName: "Үйлдэл",
-      width: 200,
+      width: 240,
       renderCell: (params) => {
         return (
           <div className="flex justify-between gap-4 w-full">
@@ -150,6 +153,12 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
               icon={MdRemoveRedEye}
               onClick={() => {
                 router.push(`/order/${params.row.id}`);
+              }}
+            />
+            <ActionBtn
+              icon={MdEdit}
+              onClick={() => {
+                router.push(`/edit-order/${params.row.id}`);
               }}
             />
           </div>

@@ -8,6 +8,7 @@ import {
     MdPhoneEnabled,
   MdDeliveryDining,
   MdPersonOutline,
+  MdDelete,
 } from "react-icons/md";
 import ActionBtn from "@/app/components/ActionBtn";
 import { useCallback, useState } from "react";
@@ -26,6 +27,7 @@ interface ManageUsersClientProps {
 
 const ManageOrdersClient: React.FC<ManageUsersClientProps> = ({ users }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  
   const router = useRouter();
   let rows: any = [];
 
@@ -46,7 +48,7 @@ const ManageOrdersClient: React.FC<ManageUsersClientProps> = ({ users }) => {
   }
 
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 120 },
+    { field: "id", headerName: "ID", width: 210 },
     { field: "name", headerName: "нэр", width: 200 },
     { field:"email",headerName:"Утас,цахим хаяг",width:300},
     {
@@ -109,6 +111,10 @@ const ManageOrdersClient: React.FC<ManageUsersClientProps> = ({ users }) => {
                 changeU(params.row.id);
               }}
             />
+            <ActionBtn
+            icon={MdDelete}
+            onClick={() => deleteUser(params.row.id)}
+          />
           </div>
         );
       },
@@ -129,6 +135,27 @@ const ManageOrdersClient: React.FC<ManageUsersClientProps> = ({ users }) => {
         console.log(err);
       });
   }, []);
+  const deleteUser = useCallback((id: string) => {
+    axios.delete("/api/user", {
+        data: { id },
+      })
+      .then((res) => {
+        toast.success("Устгасан");
+        router.refresh();
+      })
+      .catch((err) => {
+        toast.error("Алдаа");
+        console.log(err);
+      });
+      axios.delete("/api/myorder", {
+        data: { id },
+      });
+      axios.delete("/api/myproduct", {
+        data: { id },
+      });
+  }, []);
+
+  
   const changeO = useCallback((id: string) => {
     axios.put("/api/user", {
         id,

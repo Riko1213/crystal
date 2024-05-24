@@ -38,7 +38,7 @@ const NavBar = async () => {
               href="/"
               className={`${redressed.className} font-bold text-2xl`}
             >
-              Онлайн шоп
+              CRYSTAL Онлайн шоп
             </Link>
             <div className="hidden md:block"><SearchBar/></div>
             <div className="flex items-center gap-8 md:gap-12">

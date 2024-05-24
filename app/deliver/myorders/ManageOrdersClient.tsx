@@ -32,6 +32,8 @@ type ExtendedOrder = Order & {
 const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
   const router = useRouter();
   const [rows, setRows] = useState<any[]>([]); // State for rows
+  const [totalAmount, setTotalAmount] = useState<number>(0); // State for total amount
+  let sum = 0;
 
   useEffect(() => {
     // Fetch data from the API
@@ -40,13 +42,14 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
         if (!response.data) {
           throw new Error('Network response was not ok');
         }
-        return response.data; // Use response.data directly
+        return response.data; 
       })
       .then(data => {
-        // Process the data and update the rows state
         const updatedRows = orders.map(order => {
           const foundOrder = data.find((item: any) => item.orderId === order.id);
           if (foundOrder) {
+            sum += order.amount;
+            setTotalAmount(sum/2);
             return {
               ddate:order.date,
               id: order.id,
@@ -59,7 +62,8 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
           }
           return null;
         });
-        setRows(updatedRows.filter(row => row !== null)); // Filter out null rows
+        setRows(updatedRows.filter(row => row !== null));
+        
       })
       .catch(error => {
         console.error('Error fetching data:', error);
@@ -279,6 +283,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
     <div className="max-w-[1150px] m-auto text-xl">
       <div className="mb-4 mt-8">
         <Heading title="Захиалгууд" center />
+        <p>Total Amount: {formatPrice(totalAmount)}</p>
       </div>
       <div style={{ height: 600, width: "100%" }}>
         <DataGrid

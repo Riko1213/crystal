@@ -16,3 +16,16 @@ export async function PUT(request: Request) {
 
   return NextResponse.json(user);
 }
+export async function DELETE(request: Request) {
+
+  
+
+  const body = await request.json();
+  const { id } = body;
+
+  const user = await prisma.user.delete({
+    where: { id: id },
+  });
+
+  return NextResponse.json(user);
+}

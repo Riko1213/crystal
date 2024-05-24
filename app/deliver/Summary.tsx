@@ -1,6 +1,6 @@
 'use client'
 
-import { Order, Product, User } from "@prisma/client";
+import {Myorder, Order, Product, User } from "@prisma/client";
 import { useEffect, useState } from "react";
 import Heading from "../components/Heading";
 import { formatPrice } from "@/utils/formatPrice";
@@ -21,20 +21,12 @@ type SummaryDataType = {
 
 const Summary:React.FC<SummaryProps> = ({orders, products, users}) => {
     const [summaryData, setSummaryData] = useState<SummaryDataType>({
-        sale:{
-            label: 'Нийт орлого',
-            digit: 0
-        },
         orders:{
             label: 'Захиалгууд',
             digit: 0
         },
         paidOrders:{
             label: 'Төлсөн тоо',
-            digit: 0
-        },
-        unpaidOrders:{
-            label: 'Төлөөгүй тоо',
             digit: 0
         },
     })
@@ -57,10 +49,8 @@ const Summary:React.FC<SummaryProps> = ({orders, products, users}) => {
                 return order.deliveryStatus === 'dispatched'||order.deliveryStatus==='delnotpaid'
             }))
 
-            tempData.sale.digit = totalSale;
             tempData.orders.digit = orders.length;
-            tempData.paidOrders.digit = paidOrders.length;
-            tempData.unpaidOrders.digit = unpaidOrders.length;     
+            tempData.paidOrders.digit = paidOrders.length;   
 
             return tempData
         })
