@@ -6,24 +6,24 @@ import UserMenu from "./UserMenu";
 import getCurrentUser from "@/actions/getCurrentUser";
 import Categories from "./Categories";
 import SearchBar from "./SearchBar";
-
+import Image from "next/image";
 const redressed = Redressed({ subsets: ["latin"], weight: ["400"] });
 
 const NavBar = async () => {
   const currentUser = await getCurrentUser();
 
   return (
-    <div
-      className="
-  sticky
-  top-0
-  w-full
-  bg-slate-200
-  z-30
-  shadow-sm
-  "
-    >
-      <div className="py-4 border-b-[1px]">
+    <div className="relative sticky top-0 w-full z-30 shadow-sm">
+      <div className="absolute inset-0 z-[-1]">
+        <Image
+          src="/navbar.png"
+          alt="navbarbg"
+          layout="fill"
+          objectFit="cover"
+          quality={100}
+        />
+      </div>
+      <div className="py-4 border-b-[1px] bg-slate-200 bg-opacity-80">
         <Container>
           <div
             className="
