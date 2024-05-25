@@ -23,7 +23,7 @@ const NavBar = async () => {
           quality={100}
         />
       </div>
-      <div className="py-4 border-b-[1px] bg-slate-200 bg-opacity-80">
+      <div className="py-4 border-b-[1px] bg-slate-200 bg-opacity-95">
         <Container>
           <div
             className="
