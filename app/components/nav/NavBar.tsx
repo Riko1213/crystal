@@ -52,5 +52,4 @@ const NavBar = async () => {
     </div>
   );
 };
-
 export default NavBar;
