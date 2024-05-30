@@ -2,6 +2,7 @@ import Link from "next/link";
 import Container from "../Container";
 import FooterList from "./FooterList";
 import { MdFacebook } from "react-icons/md";
+import Image from "next/image";
 import {
   AiFillTwitterCircle,
   AiFillInstagram,
