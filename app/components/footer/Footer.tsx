@@ -10,16 +10,7 @@ import {
 
 const Footer = () => {
   return (
-      <div className="absolute inset-0 z-[-1]">
-        <Image
-          src="/navbar.png"
-          alt="navbarbg"
-          layout="fill"
-          objectFit="cover"
-          quality={100}
-        />
-      </div>
-    <footer className="bg-slate-700 text-slate-200 text-sm mt-16 bg-opacity-70">
+    <footer className="bg-slate-700 text-slate-200 text-sm mt-16">
       <Container>
         <div className="flex flex-col md:flex-row justify-between pt-16 pb-8">
           <FooterList>
